@@ -16,5 +16,6 @@ class PlayerListActivity : AppCompatActivity()
     fun startGame(view: View)
     {
         startActivity(Intent(this, RoleListActivity::class.java))
+        val a = 3
     }
 }
