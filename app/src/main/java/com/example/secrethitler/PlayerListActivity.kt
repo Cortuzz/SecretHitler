@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.EditText
+import android.widget.Toast
 import java.io.Serializable
 
 
@@ -27,9 +28,18 @@ class PlayerListActivity : AppCompatActivity()
 
         for (id in playerNamesIds) {
             val playerName = findViewById<EditText>(id).text.toString()
+            // todo: Create checking for same names
+
             if (playerName.replace(" ", "") != "") {
                 playerNames.add(playerName)
             }
+        }
+
+        if (playerNames.size < 5) {
+            val toastText = "At least 5 people needed for start the game."
+            Toast.makeText(applicationContext, toastText, Toast.LENGTH_SHORT).show()
+
+            return
         }
 
         val game = Game(playerNames)

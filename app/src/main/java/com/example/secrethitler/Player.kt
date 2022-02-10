@@ -1,9 +1,10 @@
 package com.example.secrethitler
 
+import java.io.Serializable
 import java.lang.Exception
 
 
-class Player(val name: String, private val role: Role) {
+class Player(val name: String, private val role: Role) : Serializable {
     private var isAlive = true
 
     var lastPost = Post.CITIZEN
@@ -15,11 +16,11 @@ class Player(val name: String, private val role: Role) {
             field = value
         }
 
-    fun getPlayerRole(): Role {
+    fun getRole(): Role {
         return role
     }
 
-    fun getPlayerParty(): Role {
+    fun getParty(): Role {
         if (role == Role.HITLER)
             return Role.FASCIST
 
