@@ -4,7 +4,7 @@ import java.io.Serializable
 import java.lang.Exception
 
 class Game (private val playerNames: List<String>) : Serializable {
-    private lateinit var players: MutableMap<String, Player>
+    private val players = mutableMapOf<String, Player>()
     private val deck = Deck()
 
     private val roles = listOf(Role.HITLER, Role.FASCIST, Role.LIBERAL, Role.LIBERAL,
@@ -23,6 +23,10 @@ class Game (private val playerNames: List<String>) : Serializable {
             val player = Player(playerNames[i], gameRoles[i])
             players[playerNames[i]] = player
         }
+    }
+
+    fun getPlayerNameByIndex(index: Int) : String {
+        return playerNames[index]
     }
 
     fun getPlayerRole(playerName: String): Role {
