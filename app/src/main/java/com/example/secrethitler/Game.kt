@@ -1,4 +1,5 @@
 package com.example.secrethitler
 
-class Game {
+class Game (val players: Map<String, Player>) {
+    private val deck = Deck()
 }
