@@ -10,7 +10,7 @@ import java.io.Serializable
 
 class PlayerListActivity : AppCompatActivity()
 {
-    lateinit var playerNamesIds: List<Int>
+    private lateinit var playerNamesIds: List<Int>
 
     override fun onCreate(savedInstanceState: Bundle?)
     {

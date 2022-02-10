@@ -1,8 +1,10 @@
 package com.example.secrethitler
 
-class Deck {
-    private lateinit var deck: MutableList<Article>
-    private lateinit var usedDeck: MutableList<Article>
+import java.io.Serializable
+
+class Deck : Serializable {
+    private var deck = mutableListOf<Article>()
+    private var usedDeck = mutableListOf<Article>()
 
     init {
         for (i in 0 until 11)
