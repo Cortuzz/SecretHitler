@@ -5,7 +5,6 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="#514D4D">
-
     <TextView
         android:layout_weight="1"
         android:layout_gravity="center"
@@ -15,13 +14,36 @@
         android:text="@string/playerName"
         android:textSize="32sp" />
 
-    <ImageView
-        android:layout_gravity="center"
-        android:id="@+id/imageView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_weight="18"
-        app:srcCompat="@drawable/role_fascist" />
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#514D4D">
+
+        <ImageView
+            android:visibility="invisible"
+            android:layout_gravity="center"
+            android:id="@+id/imageFascist"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/role_fascist" />
+
+        <ImageView
+            android:visibility="invisible"
+            android:layout_gravity="center"
+            android:id="@+id/imageLiberal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/role_liberal" />
+
+        <ImageView
+            android:visibility="invisible"
+            android:layout_gravity="center"
+            android:id="@+id/imageHitler"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/role_hitler" />
+    </RelativeLayout>
 
     <Button
         android:layout_gravity="center"
