@@ -3,5 +3,5 @@
     <string name="start_game">Play</string>
     <string name="exit">Exit</string>
     <string name="next">Next</string>
-    <string name="playerName"/>
+    <string name="playerName" />
 </resources>

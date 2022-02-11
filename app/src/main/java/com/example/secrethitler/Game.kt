@@ -1,10 +1,12 @@
 package com.example.secrethitler
 
 import java.io.Serializable
-import java.lang.Exception
+import kotlin.Exception
 
 class Game (private val playerNames: List<String>) : Serializable {
     private val players = mutableMapOf<String, Player>()
+    private var liberalCardsCount = 0
+    private var fascistCardsCount = 0
     private val deck = Deck()
 
     private val roles = listOf(Role.HITLER, Role.FASCIST, Role.LIBERAL, Role.LIBERAL,
@@ -31,5 +33,13 @@ class Game (private val playerNames: List<String>) : Serializable {
 
     fun getPlayerRole(playerName: String): Role {
         return players[playerName]!!.getRole()
+    }
+
+    fun getPlayersCount(): Int {
+        return players.size
+    }
+
+    fun getPlayers(): Array<String> {
+        return playerNames.toTypedArray()
     }
 }
