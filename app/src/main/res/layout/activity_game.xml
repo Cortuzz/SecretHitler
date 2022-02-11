@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#514D4D"
     android:orientation="vertical">
 
     <LinearLayout
@@ -10,37 +12,68 @@
         android:layout_weight="1"
         android:orientation="horizontal">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="fill_parent"
-            android:layout_weight="1"
-            android:background="#aa0000"
-            android:gravity="center_horizontal"
-            android:text="red"/>
+        <ImageView
+            android:id="@+id/fascistArticle1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:rotation="180"
+            android:visibility="invisible"
+            app:srcCompat="@drawable/fascist_article" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="#00aa00"
-            android:gravity="center_horizontal"
-            android:text="green"/>
+        <ImageView
+            android:id="@+id/fascistArticle2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:rotation="180"
+            android:visibility="invisible"
+            app:srcCompat="@drawable/fascist_article" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="#0000aa"
-            android:gravity="center_horizontal"
-            android:text="blue"/>
+        <ImageView
+            android:id="@+id/fascistArticle3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:rotation="180"
+            android:visibility="invisible"
+            app:srcCompat="@drawable/fascist_article" />
 
-        <TextView
-            android:layout_width="wrap_content"
+        <ImageView
+            android:id="@+id/fascistArticle4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:rotation="180"
+            android:visibility="invisible"
+            app:srcCompat="@drawable/fascist_article" />
+
+        <ImageView
+            android:id="@+id/fascistArticle5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:rotation="180"
+            android:visibility="invisible"
+            app:srcCompat="@drawable/fascist_article" />
+
+        <ImageView
+            android:id="@+id/fascistArticle6"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:rotation="180"
+            android:visibility="invisible"
+            app:srcCompat="@drawable/fascist_article" />
+
+        <Button
+            android:id="@+id/button2"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="#aaaa00"
-            android:gravity="center_horizontal"
-            android:text="yellow"/>
+            android:layout_gravity="center"
+            android:layout_weight="0.55"
+            android:text="N\nE\nX\nT"
+            android:onClick="nextAction"/>
     </LinearLayout>
 
     <LinearLayout
@@ -49,33 +82,51 @@
         android:layout_weight="1"
         android:orientation="horizontal">
 
-        <TextView
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="fill_parent"
             android:layout_weight="1"
-            android:text="row one"
-            android:textSize="15dp"/>
+            android:orientation="vertical"></LinearLayout>
 
-        <TextView
+        <ImageView
+            android:id="@+id/liberalArticle1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="row two"
-            android:textSize="15dp"/>
+            android:visibility="invisible"
+            app:srcCompat="@drawable/liberal_article" />
 
-        <TextView
+        <ImageView
+            android:id="@+id/liberalArticle2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="row three"
-            android:textSize="15dp"/>
+            android:visibility="invisible"
+            app:srcCompat="@drawable/liberal_article" />
 
-        <TextView
+        <ImageView
+            android:id="@+id/liberalArticle3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="row four"
-            android:textSize="15dp"/>
+            android:visibility="invisible"
+            app:srcCompat="@drawable/liberal_article" />
+
+        <ImageView
+            android:id="@+id/liberalArticle4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:visibility="invisible"
+            app:srcCompat="@drawable/liberal_article" />
+
+        <ImageView
+            android:id="@+id/liberalArticle5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:visibility="invisible"
+            app:srcCompat="@drawable/liberal_article" />
     </LinearLayout>
 
 </LinearLayout>

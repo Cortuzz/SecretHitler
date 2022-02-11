@@ -1,5 +1,6 @@
 package com.example.secrethitler
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Parcel
@@ -27,13 +28,21 @@ class RoleListActivity : AppCompatActivity()
         findViewById<TextView>(R.id.playerName).text = playerName +  " is"
     }
 
-    fun hideRoles() {
+    private fun hideRoles() {
         for ((role, id) in rolesImagesIds) {
             findViewById<ImageView>(id).visibility = View.INVISIBLE
         }
     }
 
     fun nextScreen(view: View) {
+        if (playerCount == game.getPlayersCount()) {
+            val gameActivityIntent = Intent(this, GameActivity::class.java)
+            gameActivityIntent.putExtra("game", game)
+
+            startActivity(gameActivityIntent)
+            return
+        }
+
         val playerName = game.getPlayerNameByIndex(playerCount)
         val playerRole = game.getPlayerRole(playerName)
         val roleImage = findViewById<ImageView>(rolesImagesIds[playerRole]!!)
