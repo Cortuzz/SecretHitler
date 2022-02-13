@@ -8,7 +8,6 @@ class Player(val name: String, private val role: Role) : Serializable {
     private var isAlive = true
 
     var lastPost = Post.CITIZEN
-        set(value) = throw Exception("Cannot edit field lastPost, use post instead")
 
     var post = Post.CITIZEN
         set(value) {

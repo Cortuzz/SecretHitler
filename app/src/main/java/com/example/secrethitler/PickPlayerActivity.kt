@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
-import androidx.activity.result.contract.ActivityResultContract
 import java.lang.NullPointerException
 
 class PickPlayerActivity : AppCompatActivity() {
@@ -41,8 +40,8 @@ class PickPlayerActivity : AppCompatActivity() {
             return
         }
 
-        val editIntent = Intent().apply { putExtra("playerName", playerName) }
-        setResult(RESULT_OK, editIntent)
+        val nameIntent = Intent().apply { putExtra("playerName", playerName) }
+        setResult(RESULT_OK, nameIntent)
         finish()
     }
 }

@@ -13,7 +13,6 @@ import androidx.activity.result.contract.ActivityResultContracts
 
 class GameActivity : AppCompatActivity() {
     private lateinit var game: Game
-    private var playerName = ""
     private var pickPlayerActivityLauncher: ActivityResultLauncher<Intent>? = null
     private var roundStage = Stage.ELECTION
 
@@ -31,7 +30,8 @@ class GameActivity : AppCompatActivity() {
         pickPlayerActivityLauncher =
             registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
                 if (it.resultCode == RESULT_OK) {
-                    playerName = it.data?.getSerializableExtra("playerName") as String
+                    val name = it.data?.getSerializableExtra("playerName") as String
+                    game.nominate(chancellorName = name)
                 }
             }
 
@@ -47,8 +47,8 @@ class GameActivity : AppCompatActivity() {
         findViewById<ImageView>(fascistArticlesIds.removeAt(0)).visibility = View.VISIBLE
     }
 
-    private fun elect() {
-        var playersNames = game.getPlayers()
+    private fun election() {
+        var playersNames = game.getPlayersForElection().toTypedArray()
 
         val playerPickerIntent = Intent(this@GameActivity, PickPlayerActivity::class.java)
         playerPickerIntent.putExtra("playersNames", playersNames)
@@ -57,7 +57,7 @@ class GameActivity : AppCompatActivity() {
 
     fun nextAction(view: View) {
         when (roundStage) {
-            Stage.ELECTION -> elect()
+            Stage.ELECTION -> election()
             Stage.VOTING -> null
             Stage.DRAFT -> null
         }
