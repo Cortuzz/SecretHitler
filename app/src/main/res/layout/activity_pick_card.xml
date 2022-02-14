@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#514D4D"
+    android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:layout_weight="1">
+        <RelativeLayout
+                android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+                <ImageButton
+                    android:id="@+id/article1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="50dp"
+                    android:background="#514D4D"
+                    android:onClick="pickCard"
+                    android:visibility="invisible"
+                    app:srcCompat="@drawable/fascist_article" />
+
+                <ImageView
+                    android:id="@+id/cross1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="50dp"
+                    android:visibility="invisible"
+                    app:srcCompat="@drawable/cross" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+                <ImageButton
+                    android:id="@+id/article2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="25dp"
+                    android:layout_marginEnd="25dp"
+                    android:background="#514D4D"
+                    android:onClick="pickCard"
+                    android:visibility="invisible"
+                    app:srcCompat="@drawable/fascist_article" />
+
+                <ImageView
+                    android:id="@+id/cross2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="25dp"
+                    android:layout_marginEnd="25dp"
+                    android:visibility="invisible"
+                    app:srcCompat="@drawable/cross" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+                <ImageButton
+                    android:id="@+id/article3"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="50dp"
+                    android:background="#514D4D"
+                    android:onClick="pickCard"
+                    android:visibility="invisible"
+                    app:srcCompat="@drawable/fascist_article" />
+
+                <ImageView
+                    android:id="@+id/cross3"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="50dp"
+                    android:visibility="invisible"
+                    app:srcCompat="@drawable/cross" />
+        </RelativeLayout>
+        </LinearLayout>
+        <Button
+            android:id="@+id/button3"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_weight="6"
+            android:onClick="nextAction"
+            android:text="Next" />
+</LinearLayout>

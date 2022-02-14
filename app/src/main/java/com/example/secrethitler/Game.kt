@@ -48,6 +48,20 @@ class Game (private val playerNames: List<String>) : Serializable {
         return playerNames
     }
 
+    fun getCards(): List<Article> {
+        val cards = mutableListOf<Article>()
+
+        for (i in 0 until 3) {
+            cards.add(deck.getCard())
+        }
+
+        return cards.toList()
+    }
+
+    fun discardCard(card: Article) {
+        deck.discardCard(card)
+    }
+
     fun nominate(presidentName: String = "", chancellorName: String = "") {
         if (presidentName != "")
             nominatedPresident = players[presidentName]!!
