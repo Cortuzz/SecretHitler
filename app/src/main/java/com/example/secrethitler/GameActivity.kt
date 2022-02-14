@@ -10,10 +10,11 @@ import android.widget.ImageView
 import androidx.activity.result.ActivityResultCallback
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import java.lang.Exception
 
 class GameActivity : AppCompatActivity() {
     private lateinit var game: Game
-    private var pickPlayerActivityLauncher: ActivityResultLauncher<Intent>? = null
+    private var activityLauncher: ActivityResultLauncher<Intent>? = null
     private var roundStage = Stage.ELECTION
 
     private val liberalArticlesIds =
@@ -27,18 +28,30 @@ class GameActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_game)
 
-        pickPlayerActivityLauncher =
+        activityLauncher =
             registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
                 if (it.resultCode == RESULT_OK) {
                     val name = it.data?.getSerializableExtra("playerName") as String
-                    game.nominate(chancellorName = name)
+                    val type = it.data?.getSerializableExtra("pickType") as PickType
+                    defineRequest(name, type)
+                }
+                else if (it.resultCode == RESULT_CANCELED) {
+                    val card = it.data?.getSerializableExtra("article") as Article
+                    game = it.data?.getSerializableExtra("game") as Game
+                    placeNextCard(card)
                 }
             }
 
         game = intent.getSerializableExtra("game")!! as Game
     }
 
-    private fun showNextCard(type: Article) {
+    private fun defineRequest(name: String, type: PickType) {
+        when (type) {
+            PickType.ELECTION -> game.nominate(chancellorName = name)
+        }
+    }
+
+    private fun placeNextCard(type: Article) {
         if (type == Article.LIBERAL) {
             findViewById<ImageView>(liberalArticlesIds.removeAt(0)).visibility = View.VISIBLE
             return
@@ -47,19 +60,40 @@ class GameActivity : AppCompatActivity() {
         findViewById<ImageView>(fascistArticlesIds.removeAt(0)).visibility = View.VISIBLE
     }
 
+    private fun draft() {
+        var articles = game.getCards().toTypedArray()
+
+        val cardPickerIntent = Intent(this@GameActivity, PickCardActivity::class.java)
+        cardPickerIntent.putExtra("articles", articles)
+        cardPickerIntent.putExtra("game", game)
+        activityLauncher?.launch(cardPickerIntent)
+    }
+
     private fun election() {
         var playersNames = game.getPlayersForElection().toTypedArray()
 
         val playerPickerIntent = Intent(this@GameActivity, PickPlayerActivity::class.java)
         playerPickerIntent.putExtra("playersNames", playersNames)
-        pickPlayerActivityLauncher?.launch(playerPickerIntent)
+        playerPickerIntent.putExtra("pickType", PickType.ELECTION)
+        activityLauncher?.launch(playerPickerIntent)
+    }
+
+    private fun changeStage() {
+        roundStage = when (roundStage) {
+            Stage.ELECTION -> Stage.VOTING
+            Stage.VOTING -> Stage.DRAFT
+            Stage.DRAFT -> Stage.ELECTION
+            else -> {throw Exception()}
+        }
     }
 
     fun nextAction(view: View) {
         when (roundStage) {
             Stage.ELECTION -> election()
             Stage.VOTING -> null
-            Stage.DRAFT -> null
+            Stage.DRAFT -> draft()
         }
+
+        changeStage()
     }
 }

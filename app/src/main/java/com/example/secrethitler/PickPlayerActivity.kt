@@ -8,6 +8,7 @@ import android.widget.Button
 import java.lang.NullPointerException
 
 class PickPlayerActivity : AppCompatActivity() {
+    private lateinit var pickType: PickType
     private val playersIds = listOf(R.id.player1, R.id.player2, R.id.player3, R.id.player4,
         R.id.player5, R.id.player6, R.id.player7, R.id.player8, R.id.player9, R.id.player10)
     private lateinit var playersNames: Array<String>
@@ -18,6 +19,7 @@ class PickPlayerActivity : AppCompatActivity() {
         setContentView(R.layout.activity_pick_player)
 
         playersNames = intent.getSerializableExtra("playersNames")!! as Array<String>
+        pickType = intent.getSerializableExtra("pickType")!! as PickType
 
         for (i in playersNames.indices) {
             findViewById<Button>(playersIds[i]).hint = playersNames[i]
@@ -41,6 +43,7 @@ class PickPlayerActivity : AppCompatActivity() {
         }
 
         val nameIntent = Intent().apply { putExtra("playerName", playerName) }
+        nameIntent.apply { putExtra("pickType", pickType) }
         setResult(RESULT_OK, nameIntent)
         finish()
     }
