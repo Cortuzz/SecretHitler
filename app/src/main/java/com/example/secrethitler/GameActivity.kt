@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Button
 import android.widget.ImageView
 import androidx.activity.result.ActivityResultCallback
 import androidx.activity.result.ActivityResultLauncher
@@ -39,6 +40,7 @@ class GameActivity : AppCompatActivity() {
                     val card = it.data?.getSerializableExtra("article") as Article
                     game = it.data?.getSerializableExtra("game") as Game
                     placeNextCard(card)
+                    checkPresidentAction(card)
                 }
             }
 
@@ -48,10 +50,12 @@ class GameActivity : AppCompatActivity() {
     private fun defineRequest(name: String, type: PickType) {
         when (type) {
             PickType.ELECTION -> game.nominate(chancellorName = name)
+            PickType.ACTION -> null
         }
     }
 
     private fun placeNextCard(type: Article) {
+        game.addCard(type)
         if (type == Article.LIBERAL) {
             findViewById<ImageView>(liberalArticlesIds.removeAt(0)).visibility = View.VISIBLE
             return
@@ -61,6 +65,7 @@ class GameActivity : AppCompatActivity() {
     }
 
     private fun draft() {
+        game.elect()
         var articles = game.getCards().toTypedArray()
 
         val cardPickerIntent = Intent(this@GameActivity, PickCardActivity::class.java)
@@ -69,7 +74,48 @@ class GameActivity : AppCompatActivity() {
         activityLauncher?.launch(cardPickerIntent)
     }
 
+    fun skipElection(view: View) {
+        game.nominateNext()
+
+        val skipButton = findViewById<Button>(R.id.buttonSkip)
+        val nextButton = findViewById<Button>(R.id.buttonNext)
+
+        skipButton.visibility = View.INVISIBLE
+        skipButton.isEnabled = false
+        nextButton.text = "N\nE\nX\nT"
+
+        roundStage = Stage.ELECTION
+
+        val anarchyArticle = game.increaseAnarchy()
+        if (anarchyArticle != null)
+            placeNextCard(anarchyArticle)
+    }
+
+    private fun checkPresidentAction(article: Article) {
+        if (article == Article.LIBERAL ||
+            (game.fascistCardsCount < 3 && game.playerCount <= 6) ||
+            (game.fascistCardsCount < 2 && game.playerCount <= 8))
+        {
+            game.nominateNext()
+            return
+        }
+
+        val playersNames = game.getPlayersForAction().toTypedArray()
+
+        val playerPickerIntent = Intent(this@GameActivity, PickPlayerActivity::class.java)
+        playerPickerIntent.putExtra("playersNames", playersNames)
+        playerPickerIntent.putExtra("pickType", PickType.ACTION)
+        activityLauncher?.launch(playerPickerIntent)
+    }
+
     private fun election() {
+        val skipButton = findViewById<Button>(R.id.buttonSkip)
+        val nextButton = findViewById<Button>(R.id.buttonNext)
+
+        skipButton.visibility = View.VISIBLE
+        skipButton.isEnabled = true
+        nextButton.text = "E\nL\nE\nC\nT"
+
         var playersNames = game.getPlayersForElection().toTypedArray()
 
         val playerPickerIntent = Intent(this@GameActivity, PickPlayerActivity::class.java)
@@ -79,18 +125,26 @@ class GameActivity : AppCompatActivity() {
     }
 
     private fun changeStage() {
+        if (roundStage != Stage.ELECTION) {
+            val skipButton = findViewById<Button>(R.id.buttonSkip)
+            val nextButton = findViewById<Button>(R.id.buttonNext)
+
+            skipButton.visibility = View.INVISIBLE
+            skipButton.isEnabled = false
+            nextButton.text = "N\nE\nX\nT"
+        }
+
         roundStage = when (roundStage) {
-            Stage.ELECTION -> Stage.VOTING
-            Stage.VOTING -> Stage.DRAFT
+            Stage.ELECTION -> Stage.DRAFT
             Stage.DRAFT -> Stage.ELECTION
             else -> {throw Exception()}
         }
+
     }
 
     fun nextAction(view: View) {
         when (roundStage) {
             Stage.ELECTION -> election()
-            Stage.VOTING -> null
             Stage.DRAFT -> draft()
         }
 

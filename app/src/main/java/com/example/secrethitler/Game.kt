@@ -6,11 +6,16 @@ import kotlin.Exception
 class Game (private val playerNames: List<String>) : Serializable {
     private val players = mutableMapOf<String, Player>()
     private val deck = Deck()
-    private var liberalCardsCount = 0
-    private var fascistCardsCount = 0
+    val playerCount = playerNames.size
+    var liberalCardsCount = 0
+    var fascistCardsCount = 0
+    private var anarchyCount = 0
 
-    private lateinit var nominatedChancellor: Player
-    private lateinit var nominatedPresident: Player
+    private var nominatedChancellor: Player
+    private var nominatedPresident: Player
+
+    private var prevChancellor: Player
+    private var prevPresident: Player
 
     private val roles = listOf(Role.HITLER, Role.FASCIST, Role.LIBERAL, Role.LIBERAL,
                                 Role.LIBERAL, Role.LIBERAL, Role.FASCIST, Role.LIBERAL,
@@ -29,7 +34,50 @@ class Game (private val playerNames: List<String>) : Serializable {
             players[playerNames[i]] = player
         }
 
-        nominatedPresident = players[playerNames[0]]!!
+        val firstPlayer = players[playerNames[0]]!!
+        nominatedPresident = firstPlayer
+        nominatedChancellor = firstPlayer
+        prevPresident = firstPlayer
+        prevChancellor = firstPlayer
+    }
+
+    fun getFascists() : List<Player> {
+        val fascists = mutableListOf<Player>()
+        for ((name, player) in players) {
+            if (player.getRole() == Role.FASCIST) {
+                fascists.add(player)
+            }
+        }
+
+        return fascists.toList()
+    }
+
+    fun getHitler() : Player {
+        for ((name, player) in players) {
+            if (player.getRole() == Role.HITLER) {
+                return player
+            }
+        }
+        throw Exception("WTF NO HITLER???")
+    }
+
+    fun addCard(article: Article) {
+        if (article == Article.LIBERAL) {
+            liberalCardsCount += 1
+        }
+        else {
+            fascistCardsCount += 1
+        }
+    }
+
+    fun increaseAnarchy() : Article? {
+        anarchyCount += 1
+        if (anarchyCount == 3) {
+            anarchyCount = 0
+            return deck.getCard()
+        }
+
+        return null
     }
 
     fun getPlayerNameByIndex(index: Int) : String {
@@ -62,6 +110,16 @@ class Game (private val playerNames: List<String>) : Serializable {
         deck.discardCard(card)
     }
 
+    fun nominateNext() {
+        val newPresidentName = playerNames[playerNames.indexOf(nominatedPresident.name) + 1]
+        nominatedPresident = players[newPresidentName]!!
+    }
+
+    fun elect() {
+        prevChancellor = nominatedChancellor
+        prevPresident = nominatedPresident
+    }
+
     fun nominate(presidentName: String = "", chancellorName: String = "") {
         if (presidentName != "")
             nominatedPresident = players[presidentName]!!
@@ -74,13 +132,25 @@ class Game (private val playerNames: List<String>) : Serializable {
         for (i in playerNames.indices) {
             val player = players[playerNames[i]]!!
             if (players.size <= 5) {
-                if (player.post == Post.CITIZEN && player.lastPost == Post.CITIZEN)
+                if (nominatedPresident != player && prevChancellor != player)
                     names.add(playerNames[i])
             }
             else {
-                if (player.post == Post.CITIZEN && player.lastPost != Post.CHANCELLOR)
+                if (nominatedPresident != player && prevChancellor != player && prevPresident != player)
                     names.add(playerNames[i])
             }
+        }
+
+        return names
+    }
+
+    fun getPlayersForAction(): List<String> {
+        val names = mutableListOf<String>()
+        for (i in playerNames.indices) {
+            val player = players[playerNames[i]]!!
+                if (nominatedPresident != player)
+                    names.add(playerNames[i])
+
         }
 
         return names

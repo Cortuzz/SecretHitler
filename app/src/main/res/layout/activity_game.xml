@@ -65,15 +65,30 @@
             android:rotation="180"
             android:visibility="invisible"
             app:srcCompat="@drawable/fascist_article" />
-
-        <Button
-            android:id="@+id/button2"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_gravity="center"
             android:layout_weight="0.55"
-            android:text="N\nE\nX\nT"
-            android:onClick="nextAction"/>
+            android:orientation="vertical">
+            <Button
+                android:id="@+id/buttonNext"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_weight="0.55"
+                android:text="N\nE\nX\nT"
+                android:onClick="nextAction"/>
+
+            <Button
+                android:id="@+id/buttonSkip"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_weight="0.55"
+                android:text="S\nK\nI\nP"
+                android:visibility="invisible"
+                android:onClick="skipElection"/>
+        </LinearLayout>
     </LinearLayout>
 
     <LinearLayout

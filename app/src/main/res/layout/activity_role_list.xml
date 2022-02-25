@@ -37,12 +37,62 @@
             app:srcCompat="@drawable/role_liberal" />
 
         <ImageView
-            android:visibility="invisible"
-            android:layout_gravity="center"
             android:id="@+id/imageHitler"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:visibility="invisible"
             app:srcCompat="@drawable/role_hitler" />
+
+        <TextView
+            android:id="@+id/fascist1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/teammates"
+            android:layout_alignEnd="@+id/teammates"
+            android:layout_marginTop="-140dp"
+            android:layout_marginEnd="0dp"
+            android:visibility="invisible" />
+
+        <TextView
+            android:id="@+id/teammates"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginEnd="149dp"
+            android:layout_marginBottom="185dp"
+            android:text="Teammates:" />
+
+        <TextView
+            android:id="@+id/hitler"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/teammates"
+            android:layout_alignEnd="@+id/teammates"
+            android:layout_marginTop="-170dp"
+            android:layout_marginEnd="0dp"
+            android:visibility="invisible" />
+
+        <TextView
+            android:id="@+id/fascist2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/teammates"
+            android:layout_alignEnd="@+id/teammates"
+            android:layout_marginTop="-110dp"
+            android:layout_marginEnd="0dp"
+            android:visibility="invisible" />
+
+        <TextView
+            android:id="@+id/fascist3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/teammates"
+            android:layout_alignEnd="@+id/teammates"
+            android:layout_marginTop="-80dp"
+            android:layout_marginEnd="0dp"
+            android:visibility="invisible" />
     </RelativeLayout>
 
     <Button
